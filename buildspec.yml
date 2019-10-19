@@ -7,6 +7,9 @@ phases:
   build:
     commands:
       - npm run build:prod
+  install:
+    runtime-versions:
+      nodejs: 10  
 artifacts:
   files:
     - '**/*'
