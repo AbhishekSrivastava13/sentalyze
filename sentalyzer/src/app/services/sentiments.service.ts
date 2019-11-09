@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class SentimentsService {
 
-  url = 'http://localhost:8090/getSentiments';
+  url = 'http://192.168.31.206:8090/getSentiments';
 
   constructor(private http: HttpClient) {}
 
