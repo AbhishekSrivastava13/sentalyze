@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+
+import { GeochartPage } from './geochart.page';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
-import { HomePage } from './home.page';
+const routes: Routes = [
+  {
+    path: '',
+    component: GeochartPage
+  }
+];
 
 @NgModule({
   imports: [
@@ -13,13 +21,8 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     Ng2GoogleChartsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
+    RouterModule.forChild(routes)
   ],
-  declarations: [HomePage]
+  declarations: [GeochartPage]
 })
-export class HomePageModule {}
+export class GeochartPageModule {}
