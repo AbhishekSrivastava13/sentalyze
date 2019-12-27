@@ -76,14 +76,12 @@ export class HomePage {
 
   generateColorArray(num) {
     this.colorArray = [];
-    this.colorArray.push('#025c02');
-    this.colorArray.push('#02f002');
-    this.colorArray.push('#42e0ff');  
-    this.colorArray.push('#f27979');
+    this.colorArray.push('#42e0ff');
     this.colorArray.push('#ed1000');
-    
-    
-  }
+    this.colorArray.push('#f27979');  
+    this.colorArray.push('#02f002');
+    this.colorArray.push('#025c02');
+   }
 
   createPieChart() {
     let clabels,data : [];
