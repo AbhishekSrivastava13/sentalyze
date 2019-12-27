@@ -37,6 +37,18 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "src/vendor/bootstrap/css/bootstrap.min.css"
+              },
+              {
+                "input": "src/vendor/fontawesome-free/css/all.min.css"
+              },
+              {
+                "input": "src/vendor/simple-line-icons/css/simple-line-icons.css"
+              },
+              {
+                "input": "src/css/landing-page.min.css"
               }
             ],
             "scripts": []
