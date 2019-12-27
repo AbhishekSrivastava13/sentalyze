@@ -4,7 +4,7 @@ import { SentimentsService } from '../services/sentiments.service';
 import { Chart } from 'chart.js';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
 import { LoadingController } from '@ionic/angular';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -29,7 +29,17 @@ export class HomePage {
     'latitude' : '0.0',
     'longitude' : '0.0'
   }};
-  constructor(private sentimentService: SentimentsService, private changeDetector : ChangeDetectorRef, public loadingController: LoadingController) {}
+  constructor(private sentimentService: SentimentsService, private route: ActivatedRoute, private changeDetector : ChangeDetectorRef, public loadingController: LoadingController) {
+    console.log('home page ka constructor chala or geochart : ',this.geoChart);
+  }
+
+  ngOnInit() {
+    this.searchTerm = this.route.snapshot.paramMap.get('id');
+    console.log('id value home page : ',this.searchTerm);
+    console.log('geochart is : ',this.geoChart);
+    this.getSentiments();
+  }
+
   async present() {
     this.isLoading = true;
     return await this.loadingController.create({
@@ -66,14 +76,12 @@ export class HomePage {
 
   generateColorArray(num) {
     this.colorArray = [];
-    this.colorArray.push('#025c02');
-    this.colorArray.push('#02f002');
-    this.colorArray.push('#42e0ff');  
-    this.colorArray.push('#f27979');
+    this.colorArray.push('#42e0ff');
     this.colorArray.push('#ed1000');
-    
-    
-  }
+    this.colorArray.push('#f27979');  
+    this.colorArray.push('#02f002');
+    this.colorArray.push('#025c02');
+   }
 
   createPieChart() {
     let clabels,data : [];
@@ -107,11 +115,11 @@ export class HomePage {
     
     this.geoChart = {
       chartType: 'GeoChart',
-      mapsApiKey : 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
+      //mapsApiKey : 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
       dataTable: [
          ['Lat','Long','Color','Size',{type:'string', role:'tooltip', p:{html:true}}],
       ],
-      // opt_firstRowIsData: true,
+      opt_firstRowIsData: true,
       options: {
         colorAxis: {colors: this.colorArray},
         backgroundColor: 'white',      
@@ -129,6 +137,7 @@ export class HomePage {
 
     for (var i in Object.keys(this.values)){
       if(this.values[i].latitude != '0.0' && this.values[i].longitude != '0.0'){
+        console.log('plotting lat & long as : ',this.values[i])
         this.geoChart.dataTable.push([this.values[i].latitude, this.values[i].longitude, (this.values[i].sentimentScore-1), 200, this.values[i].category]); 
     }
   }

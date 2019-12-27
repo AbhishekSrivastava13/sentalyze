@@ -22,7 +22,7 @@ export class GeochartPage {
     
     this.geoChart = {
       chartType: 'GeoChart',
-      mapsApiKey : 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
+      //mapsApiKey : 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
       dataTable: [
        /*  ['Lat','Long','Color','Size',{type:'string', role:'tooltip', p:{html:true}}],
          [41.099550000113, -73.415400000078, 0,200,'<strong>Very Positive</strong>' ],
