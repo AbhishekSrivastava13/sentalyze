@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class HomePage {
 
   @ViewChild('pieChart',{static: false}) pieChart;
+  @ViewChild('barChart',{static: false}) barChart;
   @ViewChild('geoChart',{static: false}) geoChart :  GoogleChartInterface;
   results: Observable<any>;
   values: {};
@@ -68,6 +69,7 @@ export class HomePage {
       this.chartdata = res['countMap'];
       this.changeDetector.detectChanges();
       this.generateColorArray(5);
+      this.createBarChart();
       this.createPieChart();
      this.loadGeoChart();
      this.showSpiner = false;
@@ -83,11 +85,34 @@ export class HomePage {
     this.colorArray.push('#025c02');
    }
 
+   createBarChart() {
+    let clabels,data : [];
+    this.bars = new Chart(this.barChart.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(this.chartdata),
+        datasets: [{
+          label: 'Number of user per sentiment',
+          data: Object.values(this.chartdata),
+          backgroundColor: this.colorArray, // array should have same number of elements as number of dataset
+          borderColor: this.colorArray,// array should have same number of elements as number of dataset
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  }
+
   createPieChart() {
     let clabels,data : [];
-    console.log('## the object method ',Object.keys(this.chartdata));
-    console.log('## the object values ',Object.values(this.chartdata));
-    console.log('## the object neww ',this.values);
     this.bars = new Chart(this.pieChart.nativeElement, {
       type: 'pie',
       data: {
