@@ -136,22 +136,24 @@ export class HomePage {
       }
     });
   }
-  loadGeoChart() {
+  loadGeoChart() { 
     
     this.geoChart = {
       chartType: 'GeoChart',
-      //mapsApiKey : 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY',
       dataTable: [
          ['Lat','Long','Color','Size',{type:'string', role:'tooltip', p:{html:true}}],
+         [0,0,0,0,'']
       ],
-      opt_firstRowIsData: true,
+      opt_firstRowIsData: false,
       options: {
         colorAxis: {colors: this.colorArray},
+       region: 'world',
         backgroundColor: 'white',      
         datalessRegionColor: '#d6d3c9',
         defaultColor: '#F5F5F5',
-        displayMode: 'markers',
+        displayMode: 'auto',
         domain : 'IN',
+        enableRegionInteractivity : true,
         legend: 'none',
         tooltip: {
           isHtml: true,
@@ -159,14 +161,30 @@ export class HomePage {
         }
       },
     };
-
+    var counter= 0;
     for (var i in Object.keys(this.values)){
       if(this.values[i].latitude != '0.0' && this.values[i].longitude != '0.0'){
+        console.log( this.geoChart.dataTable);
+        if(counter == 0){
+          this.geoChart.dataTable.splice(1,1);
+        }
+        console.log( this.geoChart.dataTable);
+        var newVal = 0;
+        newVal = parseInt(this.values[i].sentimentScore)-1;
+        //console.log("color"+newVal);
         console.log('plotting lat & long as : ',this.values[i])
-        this.geoChart.dataTable.push([this.values[i].latitude, this.values[i].longitude, (this.values[i].sentimentScore-1), 200, this.values[i].category]); 
+
+        
+        this.geoChart.dataTable.push([this.values[i].latitude, this.values[i].longitude, 
+          newVal, 200, this.values[i].category]); 
+          counter ++;
     }
   }
-    
+  if(counter == 0){
+    this.geoChart.dataTable.splice(1,1);
+  }
+
+  
   }
 
 }

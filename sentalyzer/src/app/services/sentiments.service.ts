@@ -8,8 +8,9 @@ import { map } from 'rxjs/operators';
 })
 export class SentimentsService {
 
-  url = 'http://192.168.31.206:8090/getSentiments';
-
+  //url = 'http://192.168.31.206:8090/getSentiments';
+  //uncomment for prod
+  url = 'http://sentalyze.ap-south-1.elasticbeanstalk.com/getSentiments';
   constructor(private http: HttpClient) {}
 
   getSentiments(keyword: string): Observable<any> {

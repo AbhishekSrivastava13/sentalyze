@@ -12,11 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'geochart',
-    loadChildren: () => import('./geochart/geochart.module').then(m => m.GeochartPageModule)
-  },
-
-  {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
