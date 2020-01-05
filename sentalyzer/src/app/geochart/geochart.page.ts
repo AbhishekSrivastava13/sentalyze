@@ -37,7 +37,7 @@ export class GeochartPage {
           ['Germany', 200],
           ['United States', 300]*/
       ],
-      // opt_firstRowIsData: true,
+      opt_firstRowIsData: true,
       options: {
        colorAxis: {colors: ['green','blue','yellow', 'orange','red']},
        region: 'world',
