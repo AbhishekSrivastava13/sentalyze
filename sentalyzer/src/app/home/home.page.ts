@@ -28,7 +28,8 @@ export class HomePage {
     'score' : '0.5',
     'sentimentScore' : '1',
     'latitude' : '0.0',
-    'longitude' : '0.0'
+    'longitude' : '0.0',
+    'application': '0.0'
   }};
   constructor(private sentimentService: SentimentsService, private route: ActivatedRoute, private changeDetector : ChangeDetectorRef, public loadingController: LoadingController) {
     console.log('home page ka constructor chala or geochart : ',this.geoChart);
@@ -67,11 +68,13 @@ export class HomePage {
     this.results.subscribe(res => {
       this.values = res['responseList'];
       this.chartdata = res['countMap'];
-      this.changeDetector.detectChanges();
+      
       this.generateColorArray(5);
+      this.loadGeoChart();
+      this.changeDetector.detectChanges();
       this.createBarChart();
       this.createPieChart();
-     this.loadGeoChart();
+     
      this.showSpiner = false;
     })
   }
