@@ -1,79 +1,78 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Search Sentiments
-    </ion-title>
-  </ion-toolbar>
+  <nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+      <div>
+        <img src="assets/img/sentalyze_logo.png" alt="" height="50" width="200">
+      </div>
+      <a class="btn btn-primary" href="/">Home</a>
+    </div>
+  </nav>
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <div><br><br><br><br></div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="2"></ion-col>
-        <ion-col size="8">
-            <h1>Sentalyze</h1>
-        </ion-col>
-        <ion-col size="2"></ion-col>
-       </ion-row>
-       <ion-row>
-         <ion-col>
-         </ion-col>
-       </ion-row>
-      <ion-row>
-        <ion-col>
-            <ion-searchbar animated [(ngModel)]="searchTerm" ></ion-searchbar>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col></ion-col>
-      </ion-row>
-      <ion-row class="ion-align-items-center">
-        <ion-col size="4"></ion-col>
-        <ion-col size="4">
-            <ion-button color="primary" style="margin-left: 20px" (click)="getSentiments()">Search</ion-button>
-        </ion-col>
-        <ion-col size="4"></ion-col>
-      </ion-row>
-      <ion-row *ngIf="chartdata">
-       <ion-col size="12">
-          <ion-card class="welcome-card">
-              <ion-card-content>
-                <canvas #pieChart></canvas>
-              </ion-card-content>
-            </ion-card>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-list>
- 
-          <ion-item *ngFor="let item of (values)" >
-            <!-- <ion-avatar slot="start">
-              <img [src]="item.Poster" *ngIf="item.Poster != 'N/A'">
-            </ion-avatar> -->
-       
-            <ion-label text-wrap>
-              <h3>{{ item.text }}</h3>
-              <ul>
-                <li>Magnitude : {{item.magnitude}}</li>
-                <li>Score : {{item.score}}</li>
-              </ul>
-            </ion-label>
-       
-            <!-- <ion-icon slot="end" *ngIf="item.Type == 'movie'" name="videocam"></ion-icon>
-            <ion-icon slot="end" *ngIf="item.Type == 'series'" name="tv"></ion-icon>
-            <ion-icon slot="end" *ngIf="item.Type == 'game'" name="logo-game-controller-b"></ion-icon> -->
-       
-          </ion-item>
-       
-        </ion-list>
-      </ion-row>
-    </ion-grid> 
+  <ion-grid>
+
+    <ion-row class="ion-align-items-center container">
+      <ion-col size="10">
+        <ion-searchbar animated [(ngModel)]="searchTerm"></ion-searchbar>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button color="primary" (click)="getSentiments()">Go</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="spin" *ngIf="showSpiner">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+       </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="chartdata">
+      <ion-col size="12">
+        <ion-card class="welcome-card">
+          <ion-card-content>
+            <google-chart [data]="geoChart"></google-chart>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="chartdata">
+      <ion-col>
+
+        <ion-card class="welcome-card">
+          <ion-card-content>
+            <canvas #barChart></canvas>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+      <ion-col>
+
+        <ion-card class="welcome-card">
+          <ion-card-content>
+            <canvas #pieChart></canvas>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-list>
+
+        <ion-item *ngFor="let item of (values)">
+          <ion-label text-wrap>
+            <h3>{{ item.text }}</h3>
+            <ul>
+              <li>Application ID : {{item.application}}</li>
+              <li>Magnitude : {{item.magnitude}}</li>
+              <li>Score : {{item.score}}</li>
+            </ul>
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
+    </ion-row>
+  </ion-grid>
 </ion-content>

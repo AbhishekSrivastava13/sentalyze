@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - npm i
+      - npm install
+      - npm install -g @angular/cli
+      - npm install -g ionic cordova
+  build:
+    commands:
+      - npm run build:prod
+     
+  install:
+    runtime-versions:
+      nodejs: 10  
+artifacts:
+  files:
+    - '**/*'
+  base-directory: www
